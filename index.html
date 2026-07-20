@@ -220,26 +220,31 @@ section{padding:64px 22px}
 }
 
 /* ── MUSIC BTN ────────────────────────────────────────── */
-.music-btn{
-  position:fixed;
-  bottom:calc(22px + env(safe-area-inset-bottom));
-  right:calc(22px + env(safe-area-inset-right));
-  width:46px;height:46px;
-  border-radius:50%;background:rgba(255,255,255,.85);
-  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
-  border:1px solid var(--gold);color:var(--gold);font-size:18px;
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;z-index:999;
-  box-shadow:0 4px 24px rgba(0,0,0,.45);
-  transition:all .3s var(--spring);
-}
-.music-btn:active{transform:scale(.88)}
-.music-btn.on{border-color:var(--gold);background:rgba(161,122,22,.14);
-  animation:pulse 2s ease-in-out infinite}
-@keyframes pulse{
-  0%,100%{box-shadow:0 0 0 0 rgba(161,122,22,.35),0 4px 24px rgba(0,0,0,.45)}
-  50%{box-shadow:0 0 0 9px rgba(161,122,22,0),0 4px 24px rgba(0,0,0,.45)}
-}
+/* ── BOTÓN MÚSICA · DISCO DE VINILO ─────────────────── */
+.vinyl-btn{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom));right:calc(20px + env(safe-area-inset-right));z-index:999;width:66px;height:66px;border-radius:50%;padding:0;border:none;cursor:pointer;background:transparent;transition:transform .35s cubic-bezier(.2,.7,.2,1);box-shadow:0 4px 18px rgba(0,0,0,.35),0 0 0 1px rgba(161,122,22,.2)}
+.vinyl-btn:active{transform:scale(.9)}
+.vinyl-btn:hover{transform:scale(1.1)}
+.vinyl-spin{width:100%;height:100%;border-radius:50%;position:relative}
+.vinyl-btn.is-playing .vinyl-spin{animation:vinylSpin 1.8s linear infinite}
+@keyframes vinylSpin{to{transform:rotate(360deg)}}
+.vinyl-disc{width:100%;height:100%;border-radius:50%;overflow:hidden;position:relative;background:radial-gradient(circle,#1a1a1a 4%,transparent 4.5%),radial-gradient(circle,#c9a96a 0%,#a17a16 17%,#7a5c0f 19%,transparent 19.5%),repeating-radial-gradient(circle,transparent 20%,rgba(255,255,255,.055) 20.8%,transparent 21.5%,transparent 24%,rgba(255,255,255,.04) 24.8%,transparent 25.5%,transparent 28%,rgba(255,255,255,.055) 28.8%,transparent 29.5%,transparent 32%,rgba(255,255,255,.04) 32.8%,transparent 33.5%,transparent 36%,rgba(255,255,255,.055) 36.8%,transparent 37.5%,transparent 40%,rgba(255,255,255,.04) 40.8%,transparent 41.5%,transparent 44%,rgba(255,255,255,.055) 44.8%,transparent 45.5%,transparent 48%,rgba(255,255,255,.04) 48.8%,transparent 49.5%,transparent 52%,rgba(255,255,255,.055) 52.8%,transparent 53.5%,transparent 56%,rgba(255,255,255,.04) 56.8%,transparent 57.5%,transparent 60%,rgba(255,255,255,.055) 60.8%,transparent 61.5%,transparent 64%,rgba(255,255,255,.04) 64.8%,transparent 65.5%,transparent 68%,rgba(255,255,255,.055) 68.8%,transparent 69.5%,transparent 72%,rgba(255,255,255,.04) 72.8%,transparent 73.5%,transparent 76%,rgba(255,255,255,.055) 76.8%,transparent 77.5%,transparent 80%,rgba(255,255,255,.04) 80.8%,transparent 81.5%,transparent 84%,rgba(255,255,255,.055) 84.8%,transparent 85.5%,transparent 88%,rgba(255,255,255,.04) 88.8%,transparent 89.5%,transparent 92%,rgba(255,255,255,.055) 92.8%,transparent 93.5%,transparent 96%,rgba(255,255,255,.04) 96.8%,transparent 97.5%),radial-gradient(circle,#1a1a1a 0%,#111111 60%,#1a1a1a 100%);box-shadow:inset 0 0 8px rgba(0,0,0,.4)}
+.vinyl-sheen{position:absolute;inset:0;border-radius:50%;background:linear-gradient(135deg,transparent 30%,rgba(255,255,255,.09) 42%,rgba(255,255,255,.15) 48%,rgba(255,255,255,.09) 54%,transparent 66%);pointer-events:none}
+.vinyl-label-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Great Vibes',cursive;font-size:13px;color:#c9a96a;text-align:center;line-height:1.1;opacity:.92;pointer-events:none;width:28px}
+.vinyl-label-text small{font-family:'Cormorant Garamond',serif;font-size:5px;letter-spacing:.15em;display:block;margin-top:1px;opacity:.6}
+.vinyl-hole{position:absolute;top:50%;left:50%;width:6px;height:6px;transform:translate(-50%,-50%);border-radius:50%;background:#1a1a1a;box-shadow:0 0 0 1.5px rgba(161,122,22,.5)}
+.vinyl-icons{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:16px;height:16px;pointer-events:none;z-index:2}
+.vinyl-icons svg{width:100%;height:100%;display:block}
+.vinyl-icon-pause{display:none}
+.vinyl-btn.is-playing .vinyl-icon-play{display:none}
+.vinyl-btn.is-playing .vinyl-icon-pause{display:block}
+.vinyl-btn::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:1px solid var(--gold);opacity:.3;animation:vinylPulse 3s ease-in-out infinite}
+.vinyl-btn.is-playing::after{animation-duration:1.6s}
+@keyframes vinylPulse{0%,100%{transform:scale(1);opacity:.3}50%{transform:scale(1.12);opacity:.05}}
+.vinyl-tonearm{position:absolute;top:-4px;right:-2px;width:24px;height:34px;transform-origin:top right;transform:rotate(-28deg);transition:transform .6s cubic-bezier(.2,.7,.2,1);pointer-events:none;z-index:1}
+.vinyl-btn.is-playing .vinyl-tonearm{transform:rotate(-12deg)}
+.vinyl-tonearm-line{position:absolute;top:2px;right:4px;width:2px;height:28px;background:linear-gradient(to bottom,#7a5c0f,#a17a16 40%,#7a5c0f);border-radius:1px;transform:rotate(-5deg);transform-origin:top center}
+.vinyl-tonearm-head{position:absolute;bottom:0;right:2px;width:5px;height:6px;background:#a17a16;border-radius:0 0 2px 2px}
+.vinyl-tonearm-pivot{position:absolute;top:0;right:2px;width:7px;height:7px;background:radial-gradient(circle,#c9a96a,#a17a16);border-radius:50%;box-shadow:0 1px 3px rgba(0,0,0,.3)}
 
 /* ── TOAST ────────────────────────────────────────────── */
 #toast{
@@ -975,11 +980,16 @@ section{padding:64px 22px}
 .pal-sw:active{transform:scale(1.18)!important}
 .pal-nm{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--cream);opacity:.75;font-weight:600}
 .dc-note{
-  background:rgba(180,156,140,.04);border-left:2px solid var(--olive);
-  padding:18px 18px;border-radius:0 8px 8px 0;
-  font-size:15px;color:var(--cream);opacity:.85;line-height:1.65;font-weight:500;
+  max-width:400px;margin:28px auto 0;
+  background:linear-gradient(160deg, rgba(255,255,255,.5), rgba(220,198,179,.30));
+  border:1px solid rgba(161,122,22,.30);
+  padding:24px 26px;border-radius:18px;
+  font-family:'Cormorant Garamond',serif;
+  font-size:16px;color:var(--cream);opacity:1;line-height:1.65;font-weight:600;
+  text-align:center;
+  box-shadow:0 8px 24px rgba(80,27,31,.10), inset 0 0 0 1px rgba(255,255,255,.4);
 }
-.dc-note strong{font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--gold);font-weight:700;display:block;margin-bottom:6px}
+.dc-note strong{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;color:var(--terra);font-weight:700;display:block;margin-bottom:10px;letter-spacing:.3px}
 
 /* ── FAMILY · CONSTELACIÓN DE MEDALLONES ─────────────── */
 /* #family — "jardín en niebla" — bokeh orgánico de orbes dispersos en toda la sección */
@@ -1675,14 +1685,13 @@ section.has-sec-waves{padding-top:84px;padding-bottom:86px}
 .sec-aura.on{opacity:1}
 
 /* ── MUSIC BTN SPRING ─────────────────────────────────── */
-.music-btn{transition:all .35s cubic-bezier(.34,1.56,.64,1)!important}
-.music-btn:hover{transform:scale(1.18)!important;border-color:var(--olive)!important}
+.vinyl-btn{transition:transform .35s cubic-bezier(.34,1.56,.64,1)!important}
 
 /* ── REDUCED MOTION ───────────────────────────────────── */
 @media(prefers-reduced-motion:reduce){
   .lbl,.ft-nms,.wind-orn,.h-frame,.gline::after,
   .loc-card,.cd-box,.fam-card,.gf-card,.pal-sw,
-  .kp-card,.alb-qr-frame,.music-btn,
+  .kp-card,.alb-qr-frame,.vinyl-btn,
   .loc-wave svg,.loc-medallion::before,.loc-medallion::after,
   .loc-rotor,.loc-med-arc{
     animation:none!important;transition:none!important;
@@ -1766,7 +1775,7 @@ section.has-sec-waves{padding-top:84px;padding-bottom:86px}
 .env-mailbox-icon{width:40px;height:40px;color:var(--gold);margin-top:16px}
 .env-title{font-family:'Great Vibes',cursive;font-size:36px;color:var(--terra);line-height:1.2}
 .env-desc{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;font-style:italic;color:var(--cream);line-height:1.7;opacity:.92}
-.env-tap-hint{font-family:'Lato',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold-dark);opacity:.9;margin-top:12px;transition:opacity .3s}
+.env-tap-hint{display:block;width:100%;text-align:center;font-family:'Lato',sans-serif;font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold-dark);opacity:.9;margin-top:12px;transition:opacity .3s}
 .env-interactive.open ~ .env-tap-hint{opacity:0;pointer-events:none}
 @keyframes env-breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
 
@@ -2204,7 +2213,7 @@ section.has-sec-waves{padding-top:84px;padding-bottom:86px}
 <!-- ENVELOPE OPENING SEQUENCE -->
 <div id="envelope-screen">
   <img id="env-image" src="assets/envelope.jpg" alt="Sobre de invitación de David y Gerardo">
-  <video id="env-video" muted playsinline preload="none" aria-hidden="true"></video>
+  <video id="env-video" src="assets/envelope-open.mp4" muted playsinline preload="auto" poster="assets/envelope.jpg"></video>
   <div id="env-tap-hint">Toca para abrir</div>
 </div>
 <div id="env-flash" aria-hidden="true"></div>
@@ -2239,7 +2248,14 @@ section.has-sec-waves{padding-top:84px;padding-bottom:86px}
 </audio>
 
 <!-- MUSIC BTN -->
-<button class="music-btn" id="musicBtn" onclick="toggleMusic()" aria-label="Música">♪</button>
+<button class="vinyl-btn" id="musicBtn" onclick="toggleMusic()" type="button" aria-label="Reproducir música de la invitación">
+  <div class="vinyl-tonearm"><div class="vinyl-tonearm-pivot"></div><div class="vinyl-tonearm-line"></div><div class="vinyl-tonearm-head"></div></div>
+  <div class="vinyl-spin"><div class="vinyl-disc"><div class="vinyl-sheen"></div><div class="vinyl-label-text">D&amp;G<small>2026</small></div><div class="vinyl-hole"></div></div></div>
+  <div class="vinyl-icons">
+    <svg class="vinyl-icon-play" viewBox="0 0 24 24" fill="#c9a96a" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+    <svg class="vinyl-icon-pause" viewBox="0 0 24 24" fill="#c9a96a" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+  </div>
+</button>
 
 <!-- TOAST -->
 <div id="toast"></div>
@@ -2670,8 +2686,8 @@ section.has-sec-waves{padding-top:84px;padding-bottom:86px}
     </div>
   </div>
 
-  <div style="max-width:380px;margin:6px auto 0">
-    <p style="font-family:'Lato',sans-serif;font-size:14px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-dark);text-align:center;margin-bottom:14px">Colores sugeridos</p>
+  <div style="max-width:380px;margin:34px auto 0">
+    <p style="font-family:'Lato',sans-serif;font-size:14px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-dark);text-align:center;margin-bottom:16px">Colores sugeridos</p>
     <div style="display:flex;gap:26px;justify-content:center;flex-wrap:wrap"><span style="display:inline-flex;flex-direction:column;align-items:center;gap:6px;"><span style="width:22px;height:22px;border-radius:50%;background:#ecbeb1;border:1px solid rgba(56,24,29,.22);box-shadow:0 1px 3px rgba(0,0,0,.12)"></span><span style="font-family:'Lato',sans-serif;font-size:13px;font-weight:600;letter-spacing:.02em;color:var(--cream)">Blush</span></span><span style="display:inline-flex;flex-direction:column;align-items:center;gap:6px;"><span style="width:22px;height:22px;border-radius:50%;background:#636b30;border:1px solid rgba(56,24,29,.22);box-shadow:0 1px 3px rgba(0,0,0,.12)"></span><span style="font-family:'Lato',sans-serif;font-size:13px;font-weight:600;letter-spacing:.02em;color:var(--cream)">Olivo</span></span><span style="display:inline-flex;flex-direction:column;align-items:center;gap:6px;"><span style="width:22px;height:22px;border-radius:50%;background:#f7e4b4;border:1px solid rgba(56,24,29,.22);box-shadow:0 1px 3px rgba(0,0,0,.12)"></span><span style="font-family:'Lato',sans-serif;font-size:13px;font-weight:600;letter-spacing:.02em;color:var(--cream)">Champagne</span></span></div>
   </div>
 
@@ -2920,7 +2936,7 @@ function initRecuerdoWheel(){
   if (!ring) return;
   var cards = ring.querySelectorAll('.rec-card');
   var n = cards.length; if (!n) return;
-  var radius = 240;
+  var radius = 202;
   var rot = 0, vel = 0, isDrag = false, startX = 0, startRot = 0, lastX = 0, rafId = null, auto = true;
 
   cards.forEach(function(c,i){
@@ -3057,9 +3073,32 @@ function initEnvelope() {
 
     gsap.to(hint, { opacity: 0, duration: .35, ease: 'power2.out' });
 
-    // Apertura: acercamiento suave sobre el sobre sellado y destello de revelado.
-    gsap.to(img, { scale: 1.28, duration: 1.5, ease: 'power2.inOut' });
-    gsap.delayedCall(0.9, triggerFlash);
+    vid.style.display = 'block';
+    vid.muted = true;
+    const playPromise = vid.play();
+    if (playPromise && playPromise.catch) playPromise.catch(() => {});
+
+    // Crossfade SIMULTÁNEO imagen → video (sin frame negro)
+    gsap.to(img, {
+      opacity: 0, duration: .75, ease: 'power2.out',
+      onComplete() { img.style.display = 'none'; }
+    });
+    gsap.fromTo(vid,
+      { opacity: 0 },
+      { opacity: 1, duration: .75, ease: 'power2.out' }
+    );
+
+    // Dispara flash cuando falten ≤2s para terminar el video
+    vid.addEventListener('timeupdate', () => {
+      if (flashing) return;
+      const d = vid.duration;
+      if (!d || isNaN(d) || !isFinite(d)) return;
+      if (vid.currentTime >= d - 2) triggerFlash();
+    });
+    // Fallback: si 'timeupdate' no cumple a tiempo
+    vid.addEventListener('ended', () => { if (!flashing) triggerFlash(); });
+    // Fallback de seguridad por si el video no carga (revelar a los 8.5s)
+    setTimeout(() => { if (!flashing) triggerFlash(); }, 8500);
   };
 
   screen.addEventListener('click', openEnvelope);
@@ -3461,9 +3500,14 @@ const mBtn = document.getElementById('musicBtn');
 let playing = false;
 
 function toggleMusic() {
-  if (playing) { aud.pause(); mBtn.innerHTML='♪'; mBtn.classList.remove('on'); }
-  else { aud.play().catch(()=>{}); mBtn.innerHTML='♬'; mBtn.classList.add('on'); }
+  if (playing) { aud.pause(); mBtn.classList.remove('is-playing'); }
+  else { aud.play().catch(()=>{}); mBtn.classList.add('is-playing'); }
   playing = !playing;
+}
+// Sincroniza el estado visual con el audio real (por si el navegador pausa)
+if (aud){
+  aud.addEventListener('play',  function(){ playing=true;  mBtn && mBtn.classList.add('is-playing'); });
+  aud.addEventListener('pause', function(){ playing=false; mBtn && mBtn.classList.remove('is-playing'); });
 }
 
 /* ── RSVP · PANEL DE INVITADOS (formato boda-jennifer) ── */
