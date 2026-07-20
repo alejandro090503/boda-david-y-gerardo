@@ -1715,6 +1715,70 @@ section.has-sec-waves{padding-top:84px;padding-bottom:86px}
   from{transform:translateX(0)}to{transform:translateX(-50%)}
 }
 
+/* ── COUNTDOWN · TILES RASCA-Y-DESCUBRE ─────────────── */
+.scratch-sub{
+  font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;
+  color:var(--cream);opacity:.85;text-align:center;line-height:1.55;
+  margin:6px auto 30px;max-width:340px;
+}
+.scratch-row{display:flex;gap:10px;justify-content:center;max-width:400px;margin:0 auto}
+.scratch-tile{
+  position:relative;flex:1;aspect-ratio:1/1;
+  border-radius:16px;overflow:hidden;
+  background:linear-gradient(160deg,#ffffff, var(--ink2));
+  border:1px solid rgba(161,122,22,.30);
+  box-shadow:0 8px 24px rgba(80,27,31,.12), inset 0 0 0 1px rgba(255,255,255,.55);
+  touch-action:none;
+}
+.scratch-face{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.scratch-num{
+  font-family:'Playfair Display',serif;font-weight:600;
+  font-size:clamp(24px,7vw,40px);line-height:1;color:var(--terra);
+}
+.scratch-tile:nth-child(2) .scratch-num{color:var(--gold-dark)}
+.scratch-tile:nth-child(3) .scratch-num{color:var(--olive-accent)}
+.scratch-tile:nth-child(4) .scratch-num{color:var(--terra)}
+.scratch-lbl{
+  font-family:'Lato',sans-serif;font-size:11px;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;color:var(--gold-dark);margin-top:7px;
+}
+.scratch-canvas{position:absolute;inset:0;width:100%;height:100%;cursor:grab;transition:opacity .55s ease}
+.scratch-canvas:active{cursor:grabbing}
+.scratch-canvas.done{opacity:0;pointer-events:none}
+.scratch-tile.revealed .scratch-face{animation:scPop .5s var(--spring)}
+@keyframes scPop{0%{transform:scale(.62);opacity:.2}100%{transform:scale(1);opacity:1}}
+.scratch-hint{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  font-family:'Lato',sans-serif;font-size:13px;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;color:var(--gold-dark);
+  margin-top:26px;transition:opacity .5s;
+}
+.scratch-hint.hide{opacity:0;pointer-events:none}
+
+/* ── LLUVIA DE SOBRES · SOBRE INTERACTIVO (clon jennifer) ─── */
+.env-interactive{display:flex;flex-direction:column;align-items:center;cursor:pointer;-webkit-tap-highlight-color:transparent;outline:none;border:none;background:none;padding:0;margin:18px auto 0}
+.env-body{perspective:700px;position:relative;width:250px;height:192px;animation:env-breathe 3.6s ease-in-out infinite}
+.env-body svg.env-svg{width:100%;height:100%}
+.env-flap-wrap{position:absolute;top:44px;left:17px;width:216px;height:83px;transform-origin:top center;transform-style:preserve-3d;backface-visibility:hidden;-webkit-backface-visibility:hidden;transition:transform .65s cubic-bezier(.4,0,.2,1);pointer-events:none;z-index:2}
+.env-interactive.open .env-flap-wrap{transform:rotateX(-175deg)}
+.env-open-content{overflow:hidden;max-height:0;opacity:0;transition:max-height .55s .3s ease,opacity .4s .38s ease;display:flex;flex-direction:column;align-items:center;gap:6px;padding:0 18px;text-align:center;pointer-events:none}
+.env-interactive.open .env-open-content{max-height:300px;opacity:1;pointer-events:auto}
+.env-mailbox-icon{width:40px;height:40px;color:var(--gold);margin-top:16px}
+.env-title{font-family:'Great Vibes',cursive;font-size:36px;color:var(--terra);line-height:1.2}
+.env-desc{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;font-style:italic;color:var(--cream);line-height:1.7;opacity:.92}
+.env-tap-hint{font-family:'Lato',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold-dark);opacity:.9;margin-top:12px;transition:opacity .3s}
+.env-interactive.open ~ .env-tap-hint{opacity:0;pointer-events:none}
+@keyframes env-breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
+
+/* ── DRESS CODE · FIGURAS (clon fabiola) ─────────────── */
+.dc-figures{display:flex;align-items:flex-end;justify-content:center;gap:22px;margin:22px auto 4px;max-width:400px}
+.dc-fig{display:flex;flex-direction:column;align-items:center;gap:12px;flex:1}
+.dc-fig img{height:208px;width:auto;display:block;filter:drop-shadow(0 8px 16px rgba(56,24,29,.22))}
+.dc-fig-label{font-family:'Cormorant Garamond',serif;font-size:19px;font-style:italic;font-weight:700;letter-spacing:.5px;color:var(--terra)}
+.dc-fig-sub{font-family:'Lato',sans-serif;font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold-dark);margin-top:-6px}
+.dc-sep-line{width:1px;align-self:stretch;background:linear-gradient(to bottom,transparent,rgba(161,122,22,.4),transparent);margin:0 2px}
+@media(max-width:360px){.dc-fig img{height:172px}.dc-figures{gap:14px}}
+
 /* Grid 2x2 — tamaños sucesivos: Días > Horas > Minutos > Segundos */
 .cd-ring-grid{
   display:grid;grid-template-columns:1fr 1fr;
@@ -1992,29 +2056,35 @@ section.has-sec-waves{padding-top:84px;padding-bottom:86px}
    ═══════════════════════════════════════════════════════ */
 #fotos-final{
   background:linear-gradient(180deg, var(--ink2) 0%, #f0e3c0 100%);
-  padding:64px 22px 56px;text-align:center;
+  padding:64px 22px 58px;text-align:center;overflow:hidden;
 }
-.ff-grid{
-  display:flex;flex-direction:column;gap:18px;
-  margin-top:32px;align-items:center;
+/* ── CARRUSEL 3D DE POLAROIDS (rueda arrastrable, clon veronica-andres) ── */
+.rec-scene{
+  position:relative;width:100%;height:420px;margin:32px auto 0;
+  perspective:1200px;transform-style:preserve-3d;overflow:visible;
 }
-.ff-card{
-  width:100%;max-width:340px;
-  border-radius:14px;overflow:hidden;
-  border:6px solid #fff;
-  box-shadow:0 12px 32px rgba(80,27,31,.16), 0 0 0 1px rgba(180,156,140,.25);
-  transform:rotate(-1deg);
-  transition:transform .4s var(--spring);
+.rec-ring{position:absolute;width:100%;height:100%;transform-style:preserve-3d;cursor:grab}
+.rec-ring.dragging{cursor:grabbing}
+.rec-card{
+  position:absolute;width:198px;height:258px;left:50%;top:50%;
+  margin-left:-99px;margin-top:-129px;
+  backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  user-select:none;-webkit-user-select:none;
 }
-.ff-card:nth-child(2){transform:rotate(1.2deg)}
-.ff-card:nth-child(3){transform:rotate(-.6deg)}
-.ff-card:nth-child(4){transform:rotate(1deg)}
-.ff-card:nth-child(5){transform:rotate(-1.3deg)}
-.ff-card:nth-child(6){transform:rotate(.7deg)}
-.ff-card:active{transform:rotate(0) scale(.99)}
-.ff-card img{
-  display:block;width:100%;height:auto;
+.rec-frame{
+  width:100%;height:100%;box-sizing:border-box;
+  background:#fff;border:8px solid #fff;border-radius:10px;overflow:hidden;
+  box-shadow:0 16px 38px rgba(80,27,31,.24), 0 0 0 1px rgba(180,156,140,.28);
+  transform:rotate(var(--t,0deg));
 }
+.rec-frame img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;pointer-events:none;border-radius:3px}
+.rec-hint{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;
+  font-size:15px;color:var(--olive);opacity:.85;margin-top:18px;transition:opacity .5s;
+}
+.rec-hint.hide{opacity:0}
+.ff-card img{display:block;width:100%;height:auto}
 .ff-sub{
   font-family:'Cormorant Garamond',serif;font-style:italic;
   font-size:16px;color:var(--olive);opacity:.85;font-weight:500;
@@ -2240,9 +2310,6 @@ section.has-sec-waves{padding-top:84px;padding-bottom:86px}
     <div class="h-date-wrap" id="hDate">
       <p class="h-date-day">24</p>
       <p class="h-date">Octubre 2026</p>
-      <div class="h-city-wrap">
-        <p class="h-city">Ciudad Satélite · Edo. de México</p>
-      </div>
     </div>
   </div>
 
@@ -2290,59 +2357,43 @@ section.has-sec-waves{padding-top:84px;padding-bottom:86px}
   <h2 class="ttl">Cuenta Regresiva</h2>
   <div class="gline"></div>
 
-  <div class="cd-ring-grid">
-    <div class="cd-ring-item" id="cd-item-d">
-      <svg class="cd-ring-svg" viewBox="0 0 120 120">
-        <circle class="cd-ring-track" cx="60" cy="60" r="52"/>
-        <circle class="cd-ring-prog"  cx="60" cy="60" r="52" id="ring-d"/>
-      </svg>
-      <div class="cd-rotor"><span class="cd-dot"></span></div>
-      <div class="cd-ripple"></div>
-      <div class="cd-ring-center">
-        <span class="cd-num" id="cd-d">--</span>
-        <span class="cd-ring-lbl">Días</span>
-      </div>
-    </div>
+  <p class="scratch-sub">Rasca cada recuadro para descubrir<br>cuánto falta para el gran día.</p>
 
-    <div class="cd-ring-item" id="cd-item-h">
-      <svg class="cd-ring-svg" viewBox="0 0 120 120">
-        <circle class="cd-ring-track" cx="60" cy="60" r="52"/>
-        <circle class="cd-ring-prog"  cx="60" cy="60" r="52" id="ring-h"/>
-      </svg>
-      <div class="cd-rotor cd-rotor-mid"><span class="cd-dot"></span></div>
-      <div class="cd-ripple"></div>
-      <div class="cd-ring-center">
-        <span class="cd-num" id="cd-h">--</span>
-        <span class="cd-ring-lbl">Horas</span>
+  <div class="scratch-row" id="scratchRow">
+    <div class="scratch-tile" data-k="d">
+      <div class="scratch-face">
+        <span class="scratch-num" id="cd-d">--</span>
+        <span class="scratch-lbl">Días</span>
       </div>
+      <canvas class="scratch-canvas" aria-hidden="true"></canvas>
     </div>
-
-    <div class="cd-ring-item" id="cd-item-m">
-      <svg class="cd-ring-svg" viewBox="0 0 120 120">
-        <circle class="cd-ring-track" cx="60" cy="60" r="52"/>
-        <circle class="cd-ring-prog"  cx="60" cy="60" r="52" id="ring-m"/>
-      </svg>
-      <div class="cd-rotor cd-rotor-rev"><span class="cd-dot"></span></div>
-      <div class="cd-ripple"></div>
-      <div class="cd-ring-center">
-        <span class="cd-num" id="cd-m">--</span>
-        <span class="cd-ring-lbl">Minutos</span>
+    <div class="scratch-tile" data-k="h">
+      <div class="scratch-face">
+        <span class="scratch-num" id="cd-h">--</span>
+        <span class="scratch-lbl">Horas</span>
       </div>
+      <canvas class="scratch-canvas" aria-hidden="true"></canvas>
     </div>
-
-    <div class="cd-ring-item" id="cd-item-s">
-      <svg class="cd-ring-svg" viewBox="0 0 120 120">
-        <circle class="cd-ring-track" cx="60" cy="60" r="52"/>
-        <circle class="cd-ring-prog"  cx="60" cy="60" r="52" id="ring-s"/>
-      </svg>
-      <div class="cd-rotor cd-rotor-fast"><span class="cd-dot"></span></div>
-      <div class="cd-ripple"></div>
-      <div class="cd-ring-center">
-        <span class="cd-num" id="cd-s">--</span>
-        <span class="cd-ring-lbl">Segundos</span>
+    <div class="scratch-tile" data-k="m">
+      <div class="scratch-face">
+        <span class="scratch-num" id="cd-m">--</span>
+        <span class="scratch-lbl">Min</span>
       </div>
+      <canvas class="scratch-canvas" aria-hidden="true"></canvas>
+    </div>
+    <div class="scratch-tile" data-k="s">
+      <div class="scratch-face">
+        <span class="scratch-num" id="cd-s">--</span>
+        <span class="scratch-lbl">Seg</span>
+      </div>
+      <canvas class="scratch-canvas" aria-hidden="true"></canvas>
     </div>
   </div>
+
+  <p class="scratch-hint" id="scratchHint">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11.5V5.5a1.5 1.5 0 0 1 3 0v5"/><path d="M12 10.5V4.5a1.5 1.5 0 0 1 3 0v6"/><path d="M15 10V6a1.5 1.5 0 0 1 3 0v8a6 6 0 0 1-6 6h-1.6a6 6 0 0 1-4.5-2l-3-3.4a1.6 1.6 0 0 1 2.3-2.2L9 13"/></svg>
+    Rasca para revelar
+  </p>
 
   <!-- ondas decorativas inferiores -->
   <div class="cd-wave-bot" aria-hidden="true">
@@ -2526,17 +2577,51 @@ section.has-sec-waves{padding-top:84px;padding-bottom:86px}
   <span class="lbl">Tu presencia es nuestro mejor regalo</span>
   <h2 class="ttl">Mesa de Regalos</h2>
   <div class="gline"></div>
-  <p class="gf-sub">Tu presencia es el regalo más grande.<br>Si deseas tener un detalle, habrá <strong style="color:var(--gold-dark);font-weight:700">lluvia de sobres</strong> el día del evento.</p>
+  <p class="gf-sub">Tu presencia es el regalo más grande.<br>Si deseas tener un detalle con nosotros:</p>
 
-  <div class="gf-card gf-bank">
-    <div class="gf-card-top">
-      <div class="gf-logo" style="background:rgba(161,122,22,.12);color:var(--gold);border-color:rgba(161,122,22,.32)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 6L2 7"/></svg></div>
-      <p class="gf-ttl" style="color:var(--gold)">Lluvia de Sobres</p>
+  <button class="env-interactive" aria-label="Sobre — toca para abrir" aria-expanded="false">
+    <div class="env-body">
+      <svg class="env-svg" viewBox="0 0 260 200" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="dg-env-fill" x1="0" y1="1" x2="1" y2="0">
+            <stop offset="0%" stop-color="#f6eadc"/>
+            <stop offset="100%" stop-color="#fdf8f1"/>
+          </linearGradient>
+        </defs>
+        <rect x="18" y="52" width="224" height="132" rx="10" fill="url(#dg-env-fill)" stroke="rgba(180,156,140,.7)" stroke-width="1.4"/>
+        <path d="M18 184 L130 110 L242 184" stroke="rgba(180,156,140,.5)" stroke-width="1" fill="none"/>
+        <line x1="90"  y1="30" x2="90"  y2="20" stroke="#c9a96a" stroke-width="1.3" stroke-linecap="round" opacity=".6"/>
+        <line x1="130" y1="24" x2="130" y2="14" stroke="#a17a16" stroke-width="1.3" stroke-linecap="round" opacity=".75"/>
+        <line x1="170" y1="30" x2="170" y2="20" stroke="#c9a96a" stroke-width="1.3" stroke-linecap="round" opacity=".6"/>
+        <line x1="110" y1="18" x2="110" y2="10" stroke="#b49c8c" stroke-width="1"   stroke-linecap="round" opacity=".5"/>
+        <line x1="150" y1="18" x2="150" y2="10" stroke="#b49c8c" stroke-width="1"   stroke-linecap="round" opacity=".5"/>
+        <circle cx="130" cy="118" r="16" fill="rgba(161,122,22,.16)" stroke="rgba(161,122,22,.5)" stroke-width="1"/>
+        <text x="130" y="123" text-anchor="middle" font-family="Georgia,serif" font-size="11" fill="#501b1f" opacity=".85">D&amp;G</text>
+      </svg>
+      <div class="env-flap-wrap" aria-hidden="true">
+        <svg viewBox="0 0 224 86" preserveAspectRatio="none" style="width:100%;height:100%">
+          <defs>
+            <linearGradient id="dg-flap-fill" x1="0" y1="1" x2="1" y2="0">
+              <stop offset="0%" stop-color="#e6cdb8"/><stop offset="100%" stop-color="#f6eadc"/>
+            </linearGradient>
+          </defs>
+          <path d="M0 0 L112 86 L224 0 Z" fill="url(#dg-flap-fill)" stroke="rgba(180,156,140,.7)" stroke-width="1.5" stroke-linejoin="round"/>
+        </svg>
+      </div>
     </div>
-    <div class="gf-bank-info">
-      <p style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;line-height:1.7;color:var(--cream);text-align:center;padding:8px 6px 4px">El día de la boda habrá un espacio especial para recibir tu sobre. Tu cariño y compañía son, sin duda, el mejor obsequio para nosotros.</p>
+    <div class="env-open-content" aria-live="polite">
+      <svg class="env-mailbox-icon" viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+        <rect x="8" y="22" width="36" height="24" rx="5"/>
+        <path d="M8 30 Q26 38 44 30"/>
+        <rect x="18" y="8" width="16" height="16" rx="2"/>
+        <path d="M18 8 Q26 3 34 8"/>
+        <rect x="20" y="28" width="12" height="2.5" rx="1.25" fill="currentColor" stroke="none" opacity=".4"/>
+      </svg>
+      <p class="env-title">Lluvia de Sobres</p>
+      <p class="env-desc">El día de la boda habrá un espacio especial<br>para recibir tu sobre. Tu cariño y compañía<br>son, sin duda, el mejor obsequio para nosotros.</p>
     </div>
-  </div>
+  </button>
+  <p class="env-tap-hint">Toca el sobre</p>
 </section>
 
 
@@ -2571,6 +2656,20 @@ section.has-sec-waves{padding-top:84px;padding-bottom:86px}
   <div class="gline"></div>
   <p class="dc-sub"><em style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--gold);display:block;margin-bottom:10px">Elegante Formal</em>Queremos verte espectacular.<br>Te pedimos vestir formal para celebrar<br>esta noche a lo grande.</p>
 
+  <div class="dc-figures">
+    <div class="dc-fig">
+      <img src="assets/caballero.png" alt="Caballero en traje formal" loading="lazy">
+      <span class="dc-fig-label">Caballeros</span>
+      <span class="dc-fig-sub">Traje formal</span>
+    </div>
+    <div class="dc-sep-line" aria-hidden="true"></div>
+    <div class="dc-fig">
+      <img src="assets/dama.png" alt="Dama en vestido formal" loading="lazy">
+      <span class="dc-fig-label">Damas</span>
+      <span class="dc-fig-sub">Vestido largo</span>
+    </div>
+  </div>
+
   <div style="max-width:380px;margin:6px auto 0">
     <p style="font-family:'Lato',sans-serif;font-size:14px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-dark);text-align:center;margin-bottom:14px">Colores sugeridos</p>
     <div style="display:flex;gap:26px;justify-content:center;flex-wrap:wrap"><span style="display:inline-flex;flex-direction:column;align-items:center;gap:6px;"><span style="width:22px;height:22px;border-radius:50%;background:#ecbeb1;border:1px solid rgba(56,24,29,.22);box-shadow:0 1px 3px rgba(0,0,0,.12)"></span><span style="font-family:'Lato',sans-serif;font-size:13px;font-weight:600;letter-spacing:.02em;color:var(--cream)">Blush</span></span><span style="display:inline-flex;flex-direction:column;align-items:center;gap:6px;"><span style="width:22px;height:22px;border-radius:50%;background:#636b30;border:1px solid rgba(56,24,29,.22);box-shadow:0 1px 3px rgba(0,0,0,.12)"></span><span style="font-family:'Lato',sans-serif;font-size:13px;font-weight:600;letter-spacing:.02em;color:var(--cream)">Olivo</span></span><span style="display:inline-flex;flex-direction:column;align-items:center;gap:6px;"><span style="width:22px;height:22px;border-radius:50%;background:#f7e4b4;border:1px solid rgba(56,24,29,.22);box-shadow:0 1px 3px rgba(0,0,0,.12)"></span><span style="font-family:'Lato',sans-serif;font-size:13px;font-weight:600;letter-spacing:.02em;color:var(--cream)">Champagne</span></span></div>
@@ -2584,74 +2683,25 @@ section.has-sec-waves{padding-top:84px;padding-bottom:86px}
 </section>
 
 
-<!-- ═══════════════ 10. FAMILIA · CONSTELACIÓN DE MEDALLONES ═══════════════ -->
-<section id="family">
-  <span class="lbl">Con amor de</span>
-  <h2 class="ttl">Padres y Padrinos</h2>
+<!-- ═══════════════ UN RECUERDO · CARRUSEL 3D ═══════════════ -->
+<section id="fotos-final">
+  <span class="lbl">Nuestros recuerdos</span>
+  <h2 class="ttl">Un <em style="font-family:'Great Vibes',cursive;color:var(--olive-accent);font-size:46px;font-weight:400;font-style:normal">Recuerdo</em></h2>
   <div class="gline"></div>
-
-  <div class="fam-grove" id="famGrove">
-    <div class="fam-thread" aria-hidden="true"></div>
-
-    <p class="fam-group-title">Nuestros Padres</p>
-
-    <div class="fam-node">
-      <div class="fam-medal">
-        <div class="fam-medal-orbit"></div>
-        <span class="fam-medal-icon">
-          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M24 8 V40" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-            <path d="M24 14 C18 14 14 18 14 22 C18 22 22 19 24 16 Z" fill="currentColor" opacity=".82"/>
-            <path d="M24 14 C30 14 34 18 34 22 C30 22 26 19 24 16 Z" fill="currentColor" opacity=".82"/>
-            <path d="M24 22 C19 22 15 25 15 29 C19 29 22.5 26.5 24 24 Z" fill="currentColor" opacity=".7"/>
-            <path d="M24 22 C29 22 33 25 33 29 C29 29 25.5 26.5 24 24 Z" fill="currentColor" opacity=".7"/>
-            <path d="M24 30 C20 30 17 32.5 17 35.5 C20.5 35.5 23 33.5 24 31.5 Z" fill="currentColor" opacity=".6"/>
-            <path d="M24 30 C28 30 31 32.5 31 35.5 C27.5 35.5 25 33.5 24 31.5 Z" fill="currentColor" opacity=".6"/>
-            <circle cx="24" cy="8" r="2" fill="currentColor"/>
-          </svg>
-        </span>
-      </div>
-      <p class="fam-role">Padres de David</p>
-      <p class="fam-names">Por confirmar</p>
-    </div>
-
-    <div class="fam-node">
-      <div class="fam-medal">
-        <div class="fam-medal-orbit"></div>
-        <span class="fam-medal-icon">
-          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M24 8 V40" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-            <path d="M24 14 C18 14 14 18 14 22 C18 22 22 19 24 16 Z" fill="currentColor" opacity=".82"/>
-            <path d="M24 14 C30 14 34 18 34 22 C30 22 26 19 24 16 Z" fill="currentColor" opacity=".82"/>
-            <path d="M24 22 C19 22 15 25 15 29 C19 29 22.5 26.5 24 24 Z" fill="currentColor" opacity=".7"/>
-            <path d="M24 22 C29 22 33 25 33 29 C29 29 25.5 26.5 24 24 Z" fill="currentColor" opacity=".7"/>
-            <path d="M24 30 C20 30 17 32.5 17 35.5 C20.5 35.5 23 33.5 24 31.5 Z" fill="currentColor" opacity=".6"/>
-            <path d="M24 30 C28 30 31 32.5 31 35.5 C27.5 35.5 25 33.5 24 31.5 Z" fill="currentColor" opacity=".6"/>
-            <circle cx="24" cy="8" r="2" fill="currentColor"/>
-          </svg>
-        </span>
-      </div>
-      <p class="fam-role">Padres de Gerardo</p>
-      <p class="fam-names">Por confirmar</p>
-    </div>
-
-  </div>
-
-  <h2 class="ttl" style="margin-top:32px">Nuestros Padrinos</h2>
-  <div class="gline"></div>
-
-  <div class="padrinos-carousel">
-    <div class="padrinos-viewport">
-      <div class="padrinos-track" id="padrinosTrack">
-        <div class="padrino-slide">
-          <div class="padrino-icon"><svg viewBox="0 0 64 64"><circle cx="26" cy="34" r="13"/><circle cx="40" cy="34" r="13"/></svg></div>
-          <div class="padrino-rol">Padrinos</div>
-          <p class="padrino-names">Por confirmar</p>
-        </div>
-      </div>
+  <div class="rec-scene" id="recScene">
+    <div class="rec-ring" id="recRing">
+        <div class="rec-card"><div class="rec-frame" style="--t:-4deg"><img src="assets/fotos/f1.jpg" alt="David y Gerardo" loading="lazy"></div></div>
+        <div class="rec-card"><div class="rec-frame" style="--t:2.5deg"><img src="assets/fotos/f2.jpg" alt="David y Gerardo" loading="lazy"></div></div>
+        <div class="rec-card"><div class="rec-frame" style="--t:-2deg"><img src="assets/fotos/f3.jpg" alt="David y Gerardo" loading="lazy"></div></div>
+        <div class="rec-card"><div class="rec-frame" style="--t:3deg"><img src="assets/fotos/f4.jpg" alt="David y Gerardo" loading="lazy"></div></div>
+        <div class="rec-card"><div class="rec-frame" style="--t:-3.2deg"><img src="assets/fotos/f5.jpg" alt="David y Gerardo" loading="lazy"></div></div>
+        <div class="rec-card"><div class="rec-frame" style="--t:1.8deg"><img src="assets/fotos/f6.jpg" alt="David y Gerardo" loading="lazy"></div></div>
     </div>
   </div>
-
+  <p class="rec-hint" id="recHint">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12h13M8 12l3-3M8 12l3 3M16 12H3M16 12l-3-3M16 12l-3 3"/></svg>
+    Arrastra para girar
+  </p>
 </section>
 
 
@@ -2715,21 +2765,6 @@ section.has-sec-waves{padding-top:84px;padding-bottom:86px}
 </section>
 
 
-<!-- ═══════════════ 12B. FOTOS FINALES ═══════════════ -->
-<section id="fotos-final">
-  <h2 class="ttl">Un <em style="font-family:'Great Vibes',cursive;color:var(--olive-accent);font-size:46px;font-weight:400;font-style:normal">Recuerdo</em></h2>
-  <div class="gline"></div>
-  <div class="ff-grid">
-    <div class="ff-card"><img src="assets/fotos/f1.jpg" alt="David y Gerardo" loading="lazy"></div>
-    <div class="ff-card"><img src="assets/fotos/f2.jpg" alt="David y Gerardo" loading="lazy"></div>
-    <div class="ff-card"><img src="assets/fotos/f3.jpg" alt="David y Gerardo" loading="lazy"></div>
-    <div class="ff-card"><img src="assets/fotos/f4.jpg" alt="David y Gerardo" loading="lazy"></div>
-    <div class="ff-card"><img src="assets/fotos/f5.jpg" alt="David y Gerardo" loading="lazy"></div>
-    <div class="ff-card"><img src="assets/fotos/f6.jpg" alt="David y Gerardo" loading="lazy"></div>
-  </div>
-</section>
-
-
 <!-- ═══════════════ 13. FOOTER ═══════════════════════ -->
 <footer id="footer">
   <div class="ft-orn">✦ · ✦ · ✦</div>
@@ -2778,7 +2813,140 @@ function launchPage() {
   countdown();
   setInterval(countdown, 1000);
   ambientWind();
+  initScratch();
+  initRecuerdoWheel();
   if (window.ScrollTrigger) ScrollTrigger.refresh();
+}
+
+/* ── COUNTDOWN · RASCA Y DESCUBRE ─────────────────────
+   Cada tile tiene un canvas "foil" encima que se borra al arrastrar,
+   revelando el número (que sigue actualizándose por countdown()). */
+function initScratch(){
+  const tiles = document.querySelectorAll('.scratch-tile');
+  const hint  = document.getElementById('scratchHint');
+  if (!tiles.length) return;
+  let hintHidden = false;
+
+  tiles.forEach(tile => {
+    const cv = tile.querySelector('.scratch-canvas');
+    if (!cv) return;
+    const ctx = cv.getContext('2d');
+    let painted = false, revealed = false;
+
+    function paint(){
+      const r = tile.getBoundingClientRect();
+      const dpr = Math.min(window.devicePixelRatio || 1, 2.5);
+      const w = Math.round(r.width), h = Math.round(r.height);
+      if (!w || !h) return;
+      cv.width = w * dpr; cv.height = h * dpr;
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+      // capa foil cálida
+      const g = ctx.createLinearGradient(0,0,w,h);
+      g.addColorStop(0,'#b49c8c'); g.addColorStop(.5,'#8a6456'); g.addColorStop(1,'#6e2328');
+      ctx.fillStyle = g; ctx.fillRect(0,0,w,h);
+      // brillo diagonal
+      ctx.globalAlpha = .18; ctx.fillStyle = '#fff';
+      ctx.beginPath(); ctx.moveTo(0,h*.62); ctx.lineTo(w*.5,h*.18); ctx.lineTo(w*.62,h*.30); ctx.lineTo(w*.12,h*.75); ctx.closePath(); ctx.fill();
+      ctx.globalAlpha = 1;
+      // icono/pista
+      ctx.fillStyle = 'rgba(255,255,255,.9)';
+      ctx.font = '700 ' + Math.round(h*.12) + "px 'Lato',sans-serif";
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText('✦', w/2, h/2 - h*.02);
+      painted = true;
+    }
+
+    function pct(){
+      try{
+        const d = ctx.getImageData(0,0,cv.width,cv.height).data;
+        let clear = 0; const step = 40; // muestreo
+        for (let i=3;i<d.length;i+=4*step){ if (d[i]===0) clear++; }
+        return clear / (d.length/(4*step));
+      }catch(e){ return 0; }
+    }
+
+    let scratching = false, lastP = null;
+    function eraseAt(x,y){
+      const r = cv.getBoundingClientRect();
+      const px = x - r.left, py = y - r.top;
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.beginPath(); ctx.arc(px,py, Math.max(16, r.width*0.16), 0, Math.PI*2); ctx.fill();
+      if (lastP){ // línea entre puntos para trazo continuo
+        ctx.lineWidth = Math.max(32, r.width*0.32); ctx.lineCap='round';
+        ctx.beginPath(); ctx.moveTo(lastP.x,lastP.y); ctx.lineTo(px,py); ctx.stroke();
+      }
+      ctx.globalCompositeOperation = 'source-over';
+      lastP = {x:px,y:py};
+    }
+    function reveal(){
+      if (revealed) return; revealed = true;
+      cv.classList.add('done'); tile.classList.add('revealed');
+    }
+    function down(e){
+      scratching = true; lastP = null;
+      if (!hintHidden && hint){ hint.classList.add('hide'); hintHidden = true; }
+      const p = e.touches ? e.touches[0] : e; eraseAt(p.clientX, p.clientY);
+    }
+    function move(e){
+      if (!scratching) return;
+      const p = e.touches ? e.touches[0] : e; eraseAt(p.clientX, p.clientY);
+      if (pct() > 0.52) reveal();
+    }
+    function up(){ scratching = false; lastP = null; if (pct() > 0.42) reveal(); }
+
+    cv.addEventListener('mousedown', e=>{ e.preventDefault(); down(e); });
+    window.addEventListener('mousemove', move);
+    window.addEventListener('mouseup', up);
+    cv.addEventListener('touchstart', e=>{ down(e); }, {passive:true});
+    cv.addEventListener('touchmove', e=>{ e.preventDefault(); move(e); }, {passive:false});
+    cv.addEventListener('touchend', up);
+
+    paint();
+    window.addEventListener('resize', ()=>{ if(!revealed) paint(); });
+  });
+}
+
+/* ── LLUVIA DE SOBRES · toggle sobre interactivo ─────── */
+(function(){
+  var btn = document.querySelector('.env-interactive');
+  if(!btn) return;
+  function toggle(){ var o = btn.classList.toggle('open'); btn.setAttribute('aria-expanded', o?'true':'false'); }
+  btn.addEventListener('click', toggle);
+})();
+
+/* ── UN RECUERDO · CARRUSEL 3D ARRASTRABLE ───────────── */
+function initRecuerdoWheel(){
+  var ring = document.getElementById('recRing');
+  if (!ring) return;
+  var cards = ring.querySelectorAll('.rec-card');
+  var n = cards.length; if (!n) return;
+  var radius = 240;
+  var rot = 0, vel = 0, isDrag = false, startX = 0, startRot = 0, lastX = 0, rafId = null, auto = true;
+
+  cards.forEach(function(c,i){
+    c.style.transform = 'rotateY(' + (360/n*i) + 'deg) translateZ(' + radius + 'px)';
+  });
+  function setRot(){ if (window.gsap) gsap.set(ring,{rotateY:rot}); else ring.style.transform = 'rotateY(' + rot + 'deg)'; }
+  setRot();
+
+  function inertia(){
+    if (isDrag) return;
+    rot += vel; vel *= 0.94; setRot();
+    if (Math.abs(vel) > 0.04) rafId = requestAnimationFrame(inertia);
+  }
+  function down(x){ isDrag=true; auto=false; ring.classList.add('dragging'); startX=x; lastX=x; startRot=rot; vel=0; if(rafId)cancelAnimationFrame(rafId);
+    var h=document.getElementById('recHint'); if(h)h.classList.add('hide'); }
+  function move(x){ if(!isDrag)return; var dx=x-startX; rot=startRot+dx*0.45; vel=(x-lastX)*0.5; lastX=x; setRot(); }
+  function up(){ if(!isDrag)return; isDrag=false; ring.classList.remove('dragging'); rafId=requestAnimationFrame(inertia); }
+
+  ring.addEventListener('mousedown', function(e){ e.preventDefault(); down(e.clientX); });
+  window.addEventListener('mousemove', function(e){ move(e.clientX); });
+  window.addEventListener('mouseup', up);
+  ring.addEventListener('touchstart', function(e){ down(e.touches[0].clientX); }, {passive:true});
+  ring.addEventListener('touchmove', function(e){ move(e.touches[0].clientX); }, {passive:true});
+  ring.addEventListener('touchend', up);
+
+  (function spin(){ if (auto && !isDrag){ rot += 0.10; setRot(); } requestAnimationFrame(spin); })();
 }
 
 /* ── THEME-COLOR · barra del navegador fundida con cada sección ──────
